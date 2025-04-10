@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 permissions:
-  contents: write  # This gives the GITHUB_TOKEN permission to push to gh-pages
+  contents: write  # This gives the GITHUB_TOKEN permission to push to gh-pages 
 
 jobs:
   build-and-test:
