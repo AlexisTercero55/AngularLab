@@ -2,9 +2,9 @@ name: Node.js CI/CD
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master_" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master_" ]
 
 permissions:
   contents: write  # This gives the GITHUB_TOKEN permission to push to gh-pages 
