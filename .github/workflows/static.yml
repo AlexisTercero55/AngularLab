@@ -32,5 +32,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/your-project-name  # Adjust to your output path
-          destination_dir: todo  # Creates /todo subdirectory in gh-pages
+          # destination_dir: todo  # Creates /todo subdirectory in gh-pages
           keep_files: false  # Cleans previous deployment
