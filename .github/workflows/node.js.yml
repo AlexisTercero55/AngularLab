@@ -1,13 +1,13 @@
-name: Node.js CI/CD
+name: Node.js-Angular-CI/CD
 
 on:
   push:
-    branches: [ "master_" ]
+    branches: [ "master", "dev" ]
   pull_request:
-    branches: [ "master_" ]
+    branches: [ "master", "dev" ]
 
 permissions:
-  contents: write  # This gives the GITHUB_TOKEN permission to push to gh-pages 
+  contents: write  # This gives the GITHUB_TOKEN permission on push to gh-pages 
 
 jobs:
   build-and-test:
@@ -16,7 +16,6 @@ jobs:
     strategy:
       matrix:
         node-version: [12.15.0]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v4
@@ -25,31 +24,45 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    # - run: npm test
+    - name: Install Angular CLI
+      run: npm install --global @angular/cli@9.0.1
+    
+    - name: Install dependencies #ensure package-lock.json
+      run: npm ci 
+    
+    - name: Build Angular project
+      run: run build --if-present         
+      #run: npm test
 
-  deploy:
+  build-and-deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.15.0]
     
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js 12.15.0
+
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        node-version: 12.15.0
+        node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - name: Install Angular CLI
       run: npm install --global @angular/cli@9.0.1
+    
     - name: Install dependencies
       run: npm ci
+
     - name: Build Angular project
-      run: ng build --prod
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/master'
-      uses: peaceiris/actions-gh-pages@v3
+      run: npm run-script deploy
+
+    - name: GitHub Pages Deployment
+      uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist/todo
-        keep_files: false  # Cleans previous deployment
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist/todo
+        CLEAN: true

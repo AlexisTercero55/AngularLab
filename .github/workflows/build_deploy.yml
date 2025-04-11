@@ -1,13 +1,13 @@
-name: bould_deploy_Angular
+name: build_deploy_Angular
 
 on:
     push:
-      branches: [ "master", "dev" ]
+      branches: [ " " ]
     pull_request:
-      branches: [ "master", "dev" ]
+      branches: [ " " ]
   
 permissions:
-    contents: write  # This gives the GITHUB_TOKEN permission to push to gh-pages 
+    contents: write  # This gives the GITHUB_TOKEN permission to push on gh-pages 
 
 jobs:
   build-and-deploy:
@@ -15,23 +15,22 @@ jobs:
     strategy:
       matrix:
         node-version: [12.15.0]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
      - uses: actions/checkout@v4
-     - name: Use Node.js 12.15.0
+     - name: Use Node.js ${{ matrix.node-version }}
        uses: actions/setup-node@v4
        with:
-            node-version: 12.15.0
+            node-version: ${{ matrix.node-version }} #12.15.0
             cache: 'npm'
      - name: Install Angular CLI
        run: npm install --global @angular/cli@9.0.1
-     - name: Install dependencies
-       run: npm ci
+
+     - name: Install dependencies #ensure package-lock.json
+       run: npm ci 
+
      - name: Build Angular project
-       run: |
-        npm install
-        npm run-script deploy
+       run: npm run-script deploy
 
      - name: Deploy
        uses: JamesIves/github-pages-deploy-action@releases/v3
