@@ -9,7 +9,7 @@ import { TodoList } from './todo-list.model';
 })
 export class AppComponent {
   title = 'todo';
-  private list = new TodoList("Bob", [
+  private list = new TodoList("Alexis", [
       new TodoItem("Go for run", true),
       new TodoItem("Get flowers"),
       new TodoItem("Collect tickets"),
@@ -19,8 +19,7 @@ export class AppComponent {
   }
 
   get itemCount(): number {
-  return this.list.items
-  .filter(item => !item.complete).length;
+    return this.items.length;
   }
 
   get items(): readonly TodoItem[] {
