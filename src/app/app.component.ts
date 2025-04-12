@@ -4,10 +4,12 @@ import { TodoList } from './todo-list.model';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './views/sportStore.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent { }
+
+export class AppComponent_v1 {
   title = 'todo';
   private list = new TodoList("Alexis", [
       new TodoItem("Go for run", true),
