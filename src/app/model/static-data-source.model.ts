@@ -1,6 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./product.model";
-import { Observable, from } from "rxjs";
+import { Observable, from, of } from "rxjs";
+/**
+ * The @Injectable decorator is used 
+ * to tell Angular that this class will be used as a service, 
+ * which allows other classes to access its functionality 
+ * through a feature called dependency injection, 
+ */
+@Injectable()
 export class StaticDataSource {
     private products: Product[] = [
         new Product(1, "Product 1", "Category 1", "Product 1 (Category 1)", 100),
@@ -19,7 +26,26 @@ export class StaticDataSource {
         new Product(14, "Product 14", "Category 3", "Product 14 (Category 3)", 100),
         new Product(15, "Product 15", "Category 3", "Product 15 (Category 3)", 100),
         ];
-    getProducts(): Observable<Product[]> {
-        return from([this.products]);
-        }
+    
+    /**
+     * getProducts : Produces arrays of Product objects.
+     * 
+     * NOTES:
+     * 
+     *  All HTTP requests (get, post, put, delete) return Observables.
+     *  
+     *  The close relationship between RxJS 
+     *  (Reactive Extensions for JavaScript) and 
+     *  Angular web development stems from Angular's 
+     *  heavy use of reactive programming patterns for 
+     *  handling asynchronous operations
+     * 
+     * CODE:
+     * 
+     *  from: Converts arrays, promises, or iterables into Observables (used for compatibility).
+     */
+    getProducts(): Observable<Product[]> 
+    {
+        return from([this.products]);//of([...this.products]);//
+    }
 }
