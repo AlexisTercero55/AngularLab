@@ -4,15 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { FeatureModuleModule } from './modules/feature-module/feature-module.module';
+import { StoreComponent } from './components/store/store.component';
+import { StoreModule } from './modules/store/store.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    //AppComponent,
+    StoreComponent
   ],
   imports: [
-    BrowserModule, FormsModule, FeatureModuleModule
+    BrowserModule, StoreModule //FormsModule, FeatureModuleModule, 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [StoreComponent]
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ import { TodoList } from './todo-list.model';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './views/sportStore.html',
+  template: './views/sportStore.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent { }
